@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import Scene from './Scene';
 import StudioSection from './components/StudioSection';
 import { DEMO_DATA, EMPTY_DATA } from './components/studentData';
@@ -18,6 +18,23 @@ export default function App() {
   const [introMessage, setIntroMessage] = useState(0);
   const [introComplete, setIntroComplete] = useState(false);
   const [focusPreviewOnEnter, setFocusPreviewOnEnter] = useState(false);
+
+  useEffect(() => {
+    if (screen !== 'intro') return undefined;
+
+    const updateEnterButton = () => {
+      const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      setIntroComplete(maxScroll > 0 && window.scrollY >= maxScroll - 2);
+    };
+
+    window.addEventListener('scroll', updateEnterButton, { passive: true });
+    window.addEventListener('resize', updateEnterButton);
+    updateEnterButton();
+    return () => {
+      window.removeEventListener('scroll', updateEnterButton);
+      window.removeEventListener('resize', updateEnterButton);
+    };
+  }, [introKey, screen]);
 
   useLayoutEffect(() => {
     const resetScroll = () => {
@@ -98,7 +115,6 @@ export default function App() {
       <div className="intro-stage">
         <Scene
           key={introKey}
-          onComplete={() => setIntroComplete(true)}
           onMessageChange={setIntroMessage}
         />
         <div className="intro-title">

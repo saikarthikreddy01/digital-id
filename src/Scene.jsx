@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { HexTube, IntroCameraRig } from './HexTube';
 import { useTubeCurve } from './useTubeCurve';
 
-function TubeWorld({ onComplete, onMessageChange }) {
+function TubeWorld({ onMessageChange }) {
   const curve = useTubeCurve();
   const highlightRef = useRef(null);
 
@@ -22,7 +22,6 @@ function TubeWorld({ onComplete, onMessageChange }) {
       <IntroCameraRig
         curve={curve}
         highlightRef={highlightRef}
-        onComplete={onComplete}
         onMessageChange={onMessageChange}
       />
       <HexTube curve={curve} />
@@ -30,7 +29,7 @@ function TubeWorld({ onComplete, onMessageChange }) {
   );
 }
 
-export default function Scene({ onComplete, onMessageChange }) {
+export default function Scene({ onMessageChange }) {
   return (
     <Canvas
       className="scene-canvas"
@@ -40,7 +39,7 @@ export default function Scene({ onComplete, onMessageChange }) {
       aria-label="A dark green hex-scale tube rolling into the digital ID builder"
     >
       <Suspense fallback={null}>
-        <TubeWorld onComplete={onComplete} onMessageChange={onMessageChange} />
+        <TubeWorld onMessageChange={onMessageChange} />
       </Suspense>
     </Canvas>
   );

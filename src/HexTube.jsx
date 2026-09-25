@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { createHexTexture } from './hexTexture';
@@ -28,39 +28,12 @@ export function HexTube({ curve }) {
   );
 }
 
-export function IntroCameraRig({ curve, highlightRef, onComplete, onMessageChange }) {
+export function IntroCameraRig({ curve, highlightRef, onMessageChange }) {
   const { camera } = useThree();
   const frames = useMemo(() => curve.computeFrenetFrames(640, false), [curve]);
   const progressRef = useRef(0.018);
-  const lastScrollAt = useRef(0);
   const messageIndex = useRef(-1);
-  const userHasScrolled = useRef(false);
   const initialized = useRef(false);
-  const completed = useRef(false);
-
-  useEffect(() => {
-    lastScrollAt.current = performance.now();
-    const markScroll = () => {
-      lastScrollAt.current = performance.now();
-    };
-    const markUserInput = () => {
-      userHasScrolled.current = true;
-      markScroll();
-    };
-    const markKeyboardScroll = (event) => {
-      if (['ArrowDown', 'PageDown', 'End', ' '].includes(event.key)) markUserInput();
-    };
-    window.addEventListener('scroll', markScroll, { passive: true });
-    window.addEventListener('wheel', markUserInput, { passive: true });
-    window.addEventListener('touchmove', markUserInput, { passive: true });
-    window.addEventListener('keydown', markKeyboardScroll);
-    return () => {
-      window.removeEventListener('scroll', markScroll);
-      window.removeEventListener('wheel', markUserInput);
-      window.removeEventListener('touchmove', markUserInput);
-      window.removeEventListener('keydown', markKeyboardScroll);
-    };
-  }, []);
 
   useFrame((state, delta) => {
     const frameDelta = Math.min(delta, 1 / 30);
@@ -104,11 +77,6 @@ export function IntroCameraRig({ curve, highlightRef, onComplete, onMessageChang
       highlightRef.current.intensity = 19 + Math.sin(state.clock.elapsedTime * 1.8) * 2;
     }
 
-    const scrollSettled = performance.now() - lastScrollAt.current > 350;
-    if (userHasScrolled.current && scrollProgress >= 1 && progress >= 0.96 && scrollSettled && !completed.current) {
-      completed.current = true;
-      onComplete?.();
-    }
   });
 
   return null;
