@@ -1,3 +1,5 @@
+import { formatDate } from './formatDate';
+
 const WIDTH = 1200;
 const HEIGHT = 845;
 const PALE = '#eff4ef';
