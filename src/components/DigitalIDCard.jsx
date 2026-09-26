@@ -26,6 +26,7 @@ export default function DigitalIDCard({ data = {}, theme = 'forest', view = 'fro
                   <h3 className="card-name">{name}</h3>
                   <CardField label="Roll / ID" value={data.rollNumber} fallback="XXXXXXXX" />
                   <CardField label="Department" value={data.department} fallback="N/A" />
+                  <CardField label="Section" value={data.section} fallback="N/A" />
                   <CardField label="Batch" value={data.batch} fallback="YYYY - YYYY" />
                   <CardField label="Blood group" value={data.bloodGroup} fallback="N/A" />
                 </div>

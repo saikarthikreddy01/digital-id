@@ -148,10 +148,11 @@ function drawFront(context, data, logo, photo, palette, x) {
   const detailsWidth = 580;
   drawText(context, 'STUDENT NAME', detailsX, 332, 17, palette.greenDark, 700);
   drawText(context, data.name || 'Your name', detailsX, 372, 32, INK, 700);
-  drawField(context, 'Roll / ID', data.rollNumber, detailsX, 425, detailsWidth, palette);
-  drawField(context, 'Department', data.department, detailsX, 484, detailsWidth, palette);
-  drawField(context, 'Batch', data.batch, detailsX, 543, detailsWidth, palette);
-  drawField(context, 'Blood group', data.bloodGroup, detailsX, 602, detailsWidth, palette);
+  drawField(context, 'Roll / ID', data.rollNumber, detailsX, 410, detailsWidth, palette);
+  drawField(context, 'Department', data.department, detailsX, 456, detailsWidth, palette);
+  drawField(context, 'Section', data.section, detailsX, 502, detailsWidth, palette);
+  drawField(context, 'Batch', data.batch, detailsX, 548, detailsWidth, palette);
+  drawField(context, 'Blood group', data.bloodGroup, detailsX, 594, detailsWidth, palette);
 
   roundedRect(context, x + 922, 486, 228, 102, 18, '#eff4ef', '#c8d8ca', 2);
   drawText(context, 'RESIDENCE', x + 1036, 526, 18, MUTED, 700, 'center');

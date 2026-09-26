@@ -96,6 +96,7 @@ export default function StudentForm({ data, onChange, onClear }) {
           <Field label="College or university" name="collegeName" value={data.collegeName} onChange={handleChange} placeholder="Institution name" />
           <Field label="Program or degree" name="degree" value={data.degree} onChange={handleChange} placeholder="e.g. B.Sc. Computer Science" />
           <Field label="Department" name="department" value={data.department} onChange={handleChange} placeholder="e.g. Computer Science" />
+          <Field label="Section" name="section" value={data.section} onChange={handleChange} placeholder="e.g. 18" />
           <label className="field">
             <span className="field-label">Academic year</span>
             <select name="year" value={data.year} onChange={handleChange}>
